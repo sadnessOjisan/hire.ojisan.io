@@ -1,2 +1,3 @@
 # hire.ojisan.io
-hire me...
+
+世界中で Edge Worker SSR
