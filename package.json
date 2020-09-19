@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sadnessOjisan/hire.ojisan.io#readme",
   "dependencies": {
     "@sadness.ojisan/reghcss": "^1.0.0",
+    "accept-language-parser": "^1.5.0",
     "next": "^9.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
