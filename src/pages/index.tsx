@@ -9,7 +9,11 @@ type LangType = "JA" | "EN";
 
 const LANG_SET: LangType[] = ["JA", "EN"];
 
-export default (props) => {
+interface IProps {
+  langSetting: string;
+}
+
+export default (props: IProps) => {
   const [lang, setLang] = React.useState<LangType>("JA");
   React.useEffect(() => {
     const { langSetting }: { langSetting: string } = props;
@@ -40,12 +44,18 @@ export default (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = (context) => {
+export const getServerSideProps: GetServerSideProps<IProps> = async (
+  context
+) => {
   const lang = context.req.headers["accept-language"];
-  const parsedLang = langParser.parse(lang);
-  let langSetting = _langSet(parsedLang[0].code);
-  console.log(langSetting);
-  return { props: { langSetting } };
+  if (typeof lang === "string") {
+    const parsedLang = langParser.parse(lang);
+    let langSetting = _langSet(parsedLang[0].code);
+    console.log(langSetting);
+    return { props: { langSetting } };
+  } else {
+    return { props: { langSetting: "JA" } };
+  }
 };
 
 const _langSet = (value: string): LangType => {
