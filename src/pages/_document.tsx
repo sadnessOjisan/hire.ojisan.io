@@ -6,6 +6,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <title>求職エントリ</title>
+          <meta name="Hatena::Bookmark" content="nocomment" />
+          <meta name="robots" content="noindex" />
           <meta property="og:title" content="求職エントリ" />
           <meta
             property="og:description"

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { GetServerSideProps } from "next";
+import router from "next/router";
 import { ArticleWrapper } from "@sadness.ojisan/reghcss";
 import langParser from "accept-language-parser";
 import { ja } from "../assets/locale/ja";
@@ -22,22 +23,27 @@ export default (props: IProps) => {
     } else {
       setLang("JA");
     }
+    const hash = Math.random().toString(32).substring(2);
+    router.replace("/", `/${hash}`);
   }, []);
-  const handleCangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const lang = e.target.value;
-    if (isLang(lang)) {
-      setLang(lang);
-    } else {
-      setLang("JA");
-    }
-  };
   return (
-    <div>
-      <select onChange={handleCangeLang} value={lang}>
-        <option>JA</option>
-        <option>EN</option>
-      </select>
+    <div style={{ padding: 12 }}>
       <div style={{ maxWidth: 760, margin: "auto" }}>
+        <div style={{ marginBottom: 12 }}>
+          <span
+            style={lang === "JA" ? selectedTipStyle : tipStyle}
+            onClick={() => setLang("JA")}
+          >
+            日本語
+          </span>
+          <span style={{ margin: "0px 8px" }}>/</span>
+          <span
+            style={lang === "EN" ? selectedTipStyle : tipStyle}
+            onClick={() => setLang("EN")}
+          >
+            English
+          </span>
+        </div>
         <ArticleWrapper html={lang === "JA" ? ja : en}></ArticleWrapper>
       </div>
     </div>
@@ -51,7 +57,6 @@ export const getServerSideProps: GetServerSideProps<IProps> = async (
   if (typeof lang === "string") {
     const parsedLang = langParser.parse(lang);
     let langSetting = _langSet(parsedLang[0].code);
-    console.log(langSetting);
     return { props: { langSetting } };
   } else {
     return { props: { langSetting: "JA" } };
@@ -70,4 +75,17 @@ const _langSet = (value: string): LangType => {
 const isLang = (value: string): value is LangType => {
   // 検査対象なのでanyを使ってもよし
   return LANG_SET.includes(value as any);
+};
+
+const tipStyle = {
+  padding: "4px 8px",
+  borderRadius: 8,
+  fontSize: 14,
+  cursor: "pointer",
+};
+
+const selectedTipStyle = {
+  ...tipStyle,
+  background: "#eaf5ff",
+  color: "#0366d6",
 };
