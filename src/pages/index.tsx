@@ -23,13 +23,13 @@ export default (props: IProps) => {
     } else {
       setLang("JA");
     }
-    const hash = Math.random().toString(32).substring(2);
-    router.replace("/", `/${hash}`);
+    // const hash = Math.random().toString(32).substring(2);
+    // router.replace("/", `/${hash}`);
   }, []);
   return (
     <div style={{ padding: 12 }}>
       <div style={{ maxWidth: 760, margin: "auto" }}>
-        <div style={{ marginBottom: 12 }}>
+        {/* <div style={{ marginBottom: 12 }}>
           <span
             style={lang === "JA" ? selectedTipStyle : tipStyle}
             onClick={() => setLang("JA")}
@@ -43,8 +43,9 @@ export default (props: IProps) => {
           >
             English
           </span>
-        </div>
-        <ArticleWrapper html={lang === "JA" ? ja : en}></ArticleWrapper>
+        </div> */}
+        {/* 両方ともja */}
+        <ArticleWrapper html={lang === "JA" ? ja : ja}></ArticleWrapper>
       </div>
     </div>
   );
